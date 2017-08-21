@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import co.quindio.sena.tutorialwebservice.fragments.BienvenidaFragment;
 import co.quindio.sena.tutorialwebservice.fragments.ConsultarListaUsuariosFragment;
 import co.quindio.sena.tutorialwebservice.fragments.ConsultarUsuarioFragment;
+import co.quindio.sena.tutorialwebservice.fragments.ConsutarListausuarioImagenFragment;
 import co.quindio.sena.tutorialwebservice.fragments.DesarrolladorFragment;
 import co.quindio.sena.tutorialwebservice.fragments.RegistrarUsuarioFragment;
 import co.quindio.sena.tutorialwebservice.interfaces.IFragments;
@@ -99,7 +100,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_consulta_gral) {
             miFragment=new ConsultarListaUsuariosFragment();
             fragmentSeleccionado=true;
-        } else if (id == R.id.nav_desarrollador) {
+        } else if (id == R.id.nav_consulta_gral_img) {
+            miFragment=new ConsutarListausuarioImagenFragment();
+            fragmentSeleccionado=true;
+        }else if (id == R.id.nav_desarrollador) {
             miFragment=new DesarrolladorFragment();
             fragmentSeleccionado=true;
         }

@@ -5,14 +5,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,20 +22,25 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import co.quindio.sena.tutorialwebservice.R;
+import co.quindio.sena.tutorialwebservice.adapter.UsuariosAdapter;
+import co.quindio.sena.tutorialwebservice.adapter.UsuariosImagenAdapter;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ConsultarUsuarioFragment.OnFragmentInteractionListener} interface
+ * {@link ConsutarListausuarioImagenFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ConsultarUsuarioFragment#newInstance} factory method to
+ * Use the {@link ConsutarListausuarioImagenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConsultarUsuarioFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class ConsutarListausuarioImagenFragment extends Fragment
+        implements Response.Listener<JSONObject>,Response.ErrorListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,16 +52,16 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
 
     private OnFragmentInteractionListener mListener;
 
-    EditText campoDocumento;
-    TextView txtNombre,txtProfesion;
-    Button btnConsultarUsuario;
-    ProgressDialog progreso;
-    ImageView campoImagen;
+    RecyclerView recyclerUsuarios;
+    ArrayList<Usuario> listaUsuarios;
+
+    ProgressDialog dialog;
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
-    public ConsultarUsuarioFragment() {
+
+    public ConsutarListausuarioImagenFragment() {
         // Required empty public constructor
     }
 
@@ -69,11 +71,11 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ConsultarUsuarioFragment.
+     * @return A new instance of fragment ConsutarListausuarioImagenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConsultarUsuarioFragment newInstance(String param1, String param2) {
-        ConsultarUsuarioFragment fragment = new ConsultarUsuarioFragment();
+    public static ConsutarListausuarioImagenFragment newInstance(String param1, String param2) {
+        ConsutarListausuarioImagenFragment fragment = new ConsutarListausuarioImagenFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -93,80 +95,70 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista=inflater.inflate(R.layout.fragment_consultar_usuario, container, false);
+        View vista= inflater.inflate(R.layout.fragment_consutar_listausuario_imagen, container, false);;
 
-        campoDocumento= (EditText) vista.findViewById(R.id.campoDocumento);
-        txtNombre= (TextView) vista.findViewById(R.id.txtNombre);
-        txtProfesion= (TextView) vista.findViewById(R.id.txtProfesion);
-        btnConsultarUsuario= (Button) vista.findViewById(R.id.btnConsultarUsuario);
-        campoImagen=(ImageView) vista.findViewById(R.id.imagenId);
+        listaUsuarios=new ArrayList<>();
+
+        recyclerUsuarios = (RecyclerView) vista.findViewById(R.id.idRecyclerImagen);
+        recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerUsuarios.setHasFixedSize(true);
 
         request= Volley.newRequestQueue(getContext());
 
-        btnConsultarUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cargarWebService();
-            }
-        });
-
+        cargarWebService();
 
         return vista;
     }
 
     private void cargarWebService() {
 
-        progreso=new ProgressDialog(getContext());
-        progreso.setMessage("Consultando...");
-        progreso.show();
+        dialog=new ProgressDialog(getContext());
+        dialog.setMessage("Consultando Imagenes");
+        dialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarUsuarioImagen.php?documento="
-                +campoDocumento.getText().toString();
-
+        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarListaImagenes.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
-
-    }
-
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        progreso.hide();
-        Toast.makeText(getContext(),"No se pudo Consultar "+error.toString(),Toast.LENGTH_SHORT).show();
-        Log.i("ERROR",error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        progreso.hide();
-
-    //    Toast.makeText(getContext(),"Mensaje: "+response,Toast.LENGTH_SHORT).show();
-
-        Usuario miUsuario=new Usuario();
+        Usuario usuario=null;
 
         JSONArray json=response.optJSONArray("usuario");
-        JSONObject jsonObject=null;
 
         try {
-            jsonObject=json.getJSONObject(0);
-            miUsuario.setNombre(jsonObject.optString("nombre"));
-            miUsuario.setProfesion(jsonObject.optString("profesion"));
-            miUsuario.setDato(jsonObject.optString("imagen"));
+
+            for (int i=0;i<json.length();i++){
+                usuario=new Usuario();
+                JSONObject jsonObject=null;
+                jsonObject=json.getJSONObject(i);
+
+                usuario.setDocumento(jsonObject.optInt("documento"));
+                usuario.setNombre(jsonObject.optString("nombre"));
+                usuario.setProfesion(jsonObject.optString("profesion"));
+                usuario.setDato(jsonObject.optString("imagen"));
+                listaUsuarios.add(usuario);
+            }
+            dialog.hide();
+            UsuariosImagenAdapter adapter=new UsuariosImagenAdapter(listaUsuarios);
+            recyclerUsuarios.setAdapter(adapter);
+
         } catch (JSONException e) {
             e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " "+response, Toast.LENGTH_LONG).show();
+            dialog.hide();
         }
+    }
 
-        txtNombre.setText("Nombre :"+miUsuario.getNombre());
-        txtProfesion.setText("Profesion :"+miUsuario.getProfesion());
-
-        if (miUsuario.getImagen()!=null){
-            campoImagen.setImageBitmap(miUsuario.getImagen());
-        }else{
-            campoImagen.setImageResource(R.drawable.img_base);
-        }
-
+    @Override
+    public void onErrorResponse(VolleyError error) {
 
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
