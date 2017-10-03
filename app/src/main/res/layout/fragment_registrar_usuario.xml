@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/idLayoutRegistrar"
     tools:context="co.quindio.sena.tutorialwebservice.fragments.RegistrarUsuarioFragment">
 
     <LinearLayout
@@ -20,11 +21,28 @@
             android:layout_marginBottom="20dp"
             android:textStyle="bold"/>
 
-        <EditText
-            android:id="@+id/campoDoc"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Documento"/>
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/campoDoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="Documento"/>
+
+            <Button
+                android:id="@+id/btnFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Foto"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/campoNombre"
@@ -37,6 +55,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Profesion"/>
+
+
+        <ImageView
+            android:id="@+id/imgFoto"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/img_base"
+            android:layout_gravity="center"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
 
     </LinearLayout>
 
