@@ -13,8 +13,13 @@ $json['img']=array();
 		
 		$ruta="imagenes";
 		$archivo=$_FILES['imagen']['tmp_name'];
-		
+		echo 'Archivo';
+		echo '<br>';
+		echo $archivo;
 		$nombreArchivo=$_FILES['imagen']['name'];
+		echo 'Nombre Archivo';
+		echo '<br>';
+		echo $nombreArchivo;
 		move_uploaded_file($archivo,$ruta."/".$nombreArchivo);
 		$ruta=$ruta."/".$nombreArchivo;
 		$documento=$_POST['documento'];
@@ -48,9 +53,9 @@ $json['img']=array();
 		echo '<br>';
 		
 		$bytesArchivo=file_get_contents($ruta);
-		$sql="INSERT INTO usuario(documento,nombre,profesion,imagen) VALUES (?,?,?,?)";
+		$sql="INSERT INTO usuario(documento,nombre,profesion,imagen,ruta_imagen) VALUES (?,?,?,?,?)";
 		$stm=$conexion->prepare($sql);
-		$stm->bind_param('isss',$documento,$nombre,$profesion,$bytesArchivo);
+		$stm->bind_param('issss',$documento,$nombre,$profesion,$bytesArchivo,$ruta);
 		
 		if($stm->execute()){
 			echo 'imagen Insertada Exitosamente ';
@@ -59,7 +64,7 @@ $json['img']=array();
 			echo '<br>';
 			while ($row=mysqli_fetch_array($resultado)){
 				echo $row['documento'].' - '.$row['nombre'].'<br/>';
-				array_push($json['img'],array('documento'=>$row['documento'],'nombre'=>$row['nombre'],'profesion'=>$row['profesion'],'photo'=>base64_encode($row['nombre'])));
+				array_push($json['img'],array('documento'=>$row['documento'],'nombre'=>$row['nombre'],'profesion'=>$row['profesion'],'photo'=>base64_encode($row['nombre']),'ruta'=>$row['ruta_imagen']));
 			}
 			mysqli_close($conexion);
 			

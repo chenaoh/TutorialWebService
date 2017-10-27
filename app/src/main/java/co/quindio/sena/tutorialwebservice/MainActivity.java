@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import co.quindio.sena.tutorialwebservice.fragments.BienvenidaFragment;
+import co.quindio.sena.tutorialwebservice.fragments.ConsultaListaUsuarioImagenUrlFragment;
+import co.quindio.sena.tutorialwebservice.fragments.ConsultaUsuarioUrlFragment;
 import co.quindio.sena.tutorialwebservice.fragments.ConsultarListaUsuariosFragment;
 import co.quindio.sena.tutorialwebservice.fragments.ConsultarUsuarioFragment;
 import co.quindio.sena.tutorialwebservice.fragments.ConsutarListausuarioImagenFragment;
@@ -97,13 +99,19 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_consulta_individual) {
             miFragment=new ConsultarUsuarioFragment();
             fragmentSeleccionado=true;
+        } else if (id == R.id.nav_consulta_Url) {
+            miFragment=new ConsultaUsuarioUrlFragment();
+            fragmentSeleccionado=true;
         } else if (id == R.id.nav_consulta_gral) {
             miFragment=new ConsultarListaUsuariosFragment();
             fragmentSeleccionado=true;
         } else if (id == R.id.nav_consulta_gral_img) {
             miFragment=new ConsutarListausuarioImagenFragment();
             fragmentSeleccionado=true;
-        }else if (id == R.id.nav_desarrollador) {
+        }else if (id == R.id.nav_consulta_gral_img_url) {
+            miFragment=new ConsultaListaUsuarioImagenUrlFragment();
+            fragmentSeleccionado=true;
+        } else if (id == R.id.nav_desarrollador) {
             miFragment=new DesarrolladorFragment();
             fragmentSeleccionado=true;
         }

@@ -16,6 +16,10 @@
             android:icon="@android:drawable/ic_menu_search"
             android:title="Consultar Usuario" />
         <item
+            android:id="@+id/nav_consulta_Url"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Consultar Usuario con URL" />
+        <item
             android:id="@+id/nav_consulta_gral"
             android:icon="@android:drawable/ic_menu_search"
             android:title="Consultar Lista de Usuarios" />
@@ -23,6 +27,10 @@
             android:id="@+id/nav_consulta_gral_img"
             android:icon="@android:drawable/ic_menu_search"
             android:title="Lista de Usuarios Imagen" />
+        <item
+            android:id="@+id/nav_consulta_gral_img_url"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Lista de Usuarios Imagen URL" />
     </group>
 
     <item android:title="Información">

@@ -13,14 +13,15 @@ $conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_local
 
 	$path = "imagenes/$nombre.jpg";
 
-	$url = "http://$hostname_localhost/ejemploBDRemota/$path";
+	//$url = "http://$hostname_localhost/ejemploBDRemota/$path";
+	$url = "imagenes/".$nombre.".jpg";
 
 	file_put_contents($path,base64_decode($imagen));
 	$bytesArchivo=file_get_contents($path);
 
-	$sql="INSERT INTO usuario VALUES (?,?,?,?)";
+	$sql="INSERT INTO usuario VALUES (?,?,?,?,?)";
 	$stm=$conexion->prepare($sql);
-	$stm->bind_param('isss',$documento,$nombre,$profesion,$bytesArchivo);
+	$stm->bind_param('issss',$documento,$nombre,$profesion,$bytesArchivo,$url);
 		
 	if($stm->execute()){
 		echo "registra";

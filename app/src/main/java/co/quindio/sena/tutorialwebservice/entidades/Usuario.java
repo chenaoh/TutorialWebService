@@ -15,6 +15,16 @@ public class Usuario {
     private String profesion;
     private String dato;
     private Bitmap imagen;
+    private String rutaImagen;
+
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
 
     public Integer getDocumento() {
         return documento;
