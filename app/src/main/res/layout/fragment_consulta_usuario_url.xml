@@ -23,13 +23,34 @@
             android:layout_marginBottom="20dp"
             android:textStyle="bold"/>
 
-        <EditText
-            android:id="@+id/campoDocumento"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Documento"/>
+            android:orientation="horizontal">
 
-        <TextView
+            <EditText
+                android:id="@+id/campoDocumento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Documento"
+                android:layout_weight=".5"/>
+
+            <ImageButton
+                android:id="@+id/btnConsultarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_search"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorAccent"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+
+
+        <EditText
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +58,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"/>
 
-        <TextView
+        <EditText
             android:id="@+id/txtProfesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,16 +67,35 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnConsultarUsuario"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Consultar"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"/>
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/btnActualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:layout_weight="2"
+            android:layout_marginRight="1dp"/>
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:layout_weight="2"
+            android:layout_marginLeft="1dp"/>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imagenId"
