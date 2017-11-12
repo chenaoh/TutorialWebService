@@ -24,6 +24,7 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) DEFAULT NULL,
   `profesion` varchar(80) DEFAULT NULL,
   `imagen` longblob,
+  `ruta_imagen` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`documento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

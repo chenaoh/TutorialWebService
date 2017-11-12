@@ -19,16 +19,15 @@ $conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_local
 	file_put_contents($path,base64_decode($imagen));
 	$bytesArchivo=file_get_contents($path);
 
-	$sql="INSERT INTO usuario VALUES (?,?,?,?,?)";
+	$sql="UPDATE usuario SET nombre= ? , profesion= ?, imagen=?, ruta_imagen=? WHERE documento=?";
 	$stm=$conexion->prepare($sql);
-	$stm->bind_param('issss',$documento,$nombre,$profesion,$bytesArchivo,$url);
+	$stm->bind_param('ssssi',$nombre,$profesion,$bytesArchivo,$url,$documento);
 		
 	if($stm->execute()){
-		echo "registra";
+		echo "actualiza";
 	}else{
-		echo "noRegistra";
+		echo "noActualiza";
 	}
-	
 	mysqli_close($conexion);
 ?>
 
