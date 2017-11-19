@@ -53,6 +53,7 @@ import java.util.Map;
 
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -99,7 +100,7 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
     //
 
 
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     StringRequest stringRequest;//SE MODIFICA
 
@@ -148,7 +149,7 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
         btnEliminar=(Button) vista.findViewById(R.id.btnEliminar);//SE MODIFICA
 
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +202,9 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
         pDialog.setMessage("Cargando...");
         pDialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarUsuarioUrl.php?documento="+txtDocumento.getText().toString();
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONConsultarUsuarioUrl.php?documento="+txtDocumento.getText().toString();
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -226,7 +229,7 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
                 etiProfesion.setText(miUsuario.getProfesion());//SE MODIFICA
 
                 String urlImagen="http://192.168.1.55/ejemploBDRemota/"+miUsuario.getRutaImagen();
-                Toast.makeText(getContext(), "url "+urlImagen, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "url "+urlImagen, Toast.LENGTH_LONG).show();
                 cargarWebServiceImagen(urlImagen);
             }
         }, new Response.ErrorListener() {
@@ -239,8 +242,8 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
             }
         });
 
-        request.add(jsonObjectRequest);
-
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void cargarWebServiceImagen(String urlImagen) {
@@ -258,7 +261,8 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
                 Toast.makeText(getContext(),"Error al cargar la imagen",Toast.LENGTH_SHORT).show();
             }
         });
-        request.add(imageRequest);
+      //  request.add(imageRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(imageRequest);
     }
 
     //SE MODIFICA
@@ -271,7 +275,9 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
         pDialog.setMessage("Cargando...");
         pDialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONUpdateMovil.php?";
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONUpdateMovil.php?";
 
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -313,8 +319,8 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
                 return parametros;
             }
         };
-        request.add(stringRequest);
-
+        //request.add(stringRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
     private String convertirImgString(Bitmap bitmap) {
@@ -332,7 +338,9 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
         pDialog.setMessage("Cargando...");
         pDialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONDeleteMovil.php?documento="+txtDocumento.getText().toString();
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONDeleteMovil.php?documento="+txtDocumento.getText().toString();
 
         stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -364,7 +372,8 @@ public class ConsultaUsuarioUrlFragment extends Fragment {
                 pDialog.hide();
             }
         });
-        request.add(stringRequest);
+        //request.add(stringRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
     private void mostrarDialogOpciones() {

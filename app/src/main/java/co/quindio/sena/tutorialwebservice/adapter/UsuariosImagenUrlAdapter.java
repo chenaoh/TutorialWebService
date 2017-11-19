@@ -20,6 +20,7 @@ import java.util.List;
 
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 /**
  * Created by CHENAO on 6/08/2017.
@@ -28,14 +29,14 @@ import co.quindio.sena.tutorialwebservice.entidades.Usuario;
 public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImagenUrlAdapter.UsuariosHolder>{
 
     List<Usuario> listaUsuarios;
-    RequestQueue request;
+  //  RequestQueue request;
     Context context;
 
 
     public UsuariosImagenUrlAdapter(List<Usuario> listaUsuarios, Context context) {
         this.listaUsuarios = listaUsuarios;
         this.context=context;
-        request= Volley.newRequestQueue(context);
+      //  request= Volley.newRequestQueue(context);
     }
 
     @Override
@@ -62,7 +63,10 @@ public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImage
     }
 
     private void cargarImagenWebService(String rutaImagen, final UsuariosHolder holder) {
-        String urlImagen="http://192.168.1.55/ejemploBDRemota/"+rutaImagen;
+
+        String ip=context.getString(R.string.ip);
+
+        String urlImagen=ip+"/ejemploBDRemota/"+rutaImagen;
         urlImagen=urlImagen.replace(" ","%20");
 
         ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
@@ -76,7 +80,8 @@ public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImage
                 Toast.makeText(context,"Error al cargar la imagen",Toast.LENGTH_SHORT).show();
             }
         });
-        request.add(imageRequest);
+        //request.add(imageRequest);
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(imageRequest);
     }
 
     @Override

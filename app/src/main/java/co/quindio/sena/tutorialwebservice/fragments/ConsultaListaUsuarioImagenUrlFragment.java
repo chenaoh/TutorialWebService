@@ -30,6 +30,7 @@ import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.adapter.UsuariosImagenAdapter;
 import co.quindio.sena.tutorialwebservice.adapter.UsuariosImagenUrlAdapter;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +57,7 @@ public class ConsultaListaUsuarioImagenUrlFragment extends Fragment implements R
 
     ProgressDialog dialog;
 
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     public ConsultaListaUsuarioImagenUrlFragment() {
@@ -101,7 +102,7 @@ public class ConsultaListaUsuarioImagenUrlFragment extends Fragment implements R
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerUsuarios.setHasFixedSize(true);
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         cargarWebService();
 
@@ -114,9 +115,12 @@ public class ConsultaListaUsuarioImagenUrlFragment extends Fragment implements R
         dialog.setMessage("Consultando Imagenes");
         dialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarListaImagenesUrl.php";
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONConsultarListaImagenesUrl.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

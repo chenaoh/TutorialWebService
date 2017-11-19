@@ -29,6 +29,7 @@ import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.adapter.UsuariosAdapter;
 import co.quindio.sena.tutorialwebservice.adapter.UsuariosImagenAdapter;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 
 /**
@@ -57,7 +58,7 @@ public class ConsutarListausuarioImagenFragment extends Fragment
 
     ProgressDialog dialog;
 
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
 
@@ -103,7 +104,7 @@ public class ConsutarListausuarioImagenFragment extends Fragment
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerUsuarios.setHasFixedSize(true);
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         cargarWebService();
 
@@ -116,9 +117,12 @@ public class ConsutarListausuarioImagenFragment extends Fragment
         dialog.setMessage("Consultando Imagenes");
         dialog.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarListaImagenes.php";
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONConsultarListaImagenes.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

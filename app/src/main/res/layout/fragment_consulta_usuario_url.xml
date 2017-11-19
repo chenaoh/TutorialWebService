@@ -73,7 +73,8 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
 
         <Button
             android:id="@+id/btnActualizar"
@@ -102,7 +103,8 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/img_base"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
 
 </RelativeLayout>

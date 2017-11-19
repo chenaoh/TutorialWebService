@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.adapter.UsuariosAdapter;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +56,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
 
     ProgressDialog progress;
 
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
 
@@ -101,7 +102,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerUsuarios.setHasFixedSize(true);
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         cargarWebService();
 
@@ -115,11 +116,13 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         progress.setMessage("Consultando...");
         progress.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarLista.php";
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONConsultarLista.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
-
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

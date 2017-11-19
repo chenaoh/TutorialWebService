@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import co.quindio.sena.tutorialwebservice.R;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -93,7 +94,7 @@ public class RegistrarUsuarioFragment extends Fragment {
 
     RelativeLayout layoutRegistrar;//permisos
 
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     StringRequest stringRequest;
@@ -145,7 +146,7 @@ public class RegistrarUsuarioFragment extends Fragment {
 
         layoutRegistrar= (RelativeLayout) vista.findViewById(R.id.idLayoutRegistrar);
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         //Permisos
         if(solicitaPermisosVersionesSuperiores()){
@@ -376,7 +377,9 @@ public class RegistrarUsuarioFragment extends Fragment {
         progreso.setMessage("Cargando...");
         progreso.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONRegistroMovil.php?";
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONRegistroMovil.php?";
 
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -418,7 +421,8 @@ public class RegistrarUsuarioFragment extends Fragment {
                 return parametros;
             }
         };
-        request.add(stringRequest);
+        //request.add(stringRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
     private String convertirImgString(Bitmap bitmap) {

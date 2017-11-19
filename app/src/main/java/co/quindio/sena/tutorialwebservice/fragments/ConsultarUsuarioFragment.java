@@ -29,6 +29,7 @@ import org.w3c.dom.Text;
 
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.entidades.Usuario;
+import co.quindio.sena.tutorialwebservice.entidades.VolleySingleton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +57,7 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
     ProgressDialog progreso;
     ImageView campoImagen;
 
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     public ConsultarUsuarioFragment() {
@@ -101,7 +102,7 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
         btnConsultarUsuario= (Button) vista.findViewById(R.id.btnConsultarUsuario);
         campoImagen=(ImageView) vista.findViewById(R.id.imagenId);
 
-        request= Volley.newRequestQueue(getContext());
+       // request= Volley.newRequestQueue(getContext());
 
         btnConsultarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,12 +121,14 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
         progreso.setMessage("Consultando...");
         progreso.show();
 
-        String url="http://192.168.1.55/ejemploBDRemota/wsJSONConsultarUsuarioImagen.php?documento="
+        String ip=getString(R.string.ip);
+
+        String url=ip+"/ejemploBDRemota/wsJSONConsultarUsuarioImagen.php?documento="
                 +campoDocumento.getText().toString();
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
-
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 
