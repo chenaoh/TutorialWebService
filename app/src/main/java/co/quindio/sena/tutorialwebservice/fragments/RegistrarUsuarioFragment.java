@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -382,6 +383,7 @@ public class RegistrarUsuarioFragment extends Fragment {
         String url=ip+"/ejemploBDRemota/wsJSONRegistroMovil.php?";
 
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
                 progreso.hide();
@@ -422,6 +424,7 @@ public class RegistrarUsuarioFragment extends Fragment {
             }
         };
         //request.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
     }
 

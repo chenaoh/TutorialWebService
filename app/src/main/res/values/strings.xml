@@ -6,7 +6,8 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="ip">http://192.168.1.55</string>
+    <string name="ip2">http://192.168.1.55</string>
+    <string name="ip">https://tutorialandroidcodejavu.000webhostapp.com</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
