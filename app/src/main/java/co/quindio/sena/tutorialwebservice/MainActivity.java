@@ -2,11 +2,8 @@ package co.quindio.sena.tutorialwebservice;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,7 +23,7 @@ import co.quindio.sena.tutorialwebservice.fragments.RegistrarUsuarioFragment;
 import co.quindio.sena.tutorialwebservice.interfaces.IFragments;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,IFragments{
+        implements NavigationView.OnNavigationItemSelectedListener, IFragments {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +39,8 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        Fragment miFragment=new BienvenidaFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragment).commit();
+        Fragment miFragment = new BienvenidaFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -87,37 +84,37 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment miFragment=null;
-        boolean fragmentSeleccionado=false;
+        Fragment miFragment = null;
+        boolean fragmentSeleccionado = false;
 
         if (id == R.id.nav_inicio) {
-            miFragment=new BienvenidaFragment();
-            fragmentSeleccionado=true;
-        }else if (id == R.id.nav_registro) {
-            miFragment=new RegistrarUsuarioFragment();
-            fragmentSeleccionado=true;
+            miFragment = new BienvenidaFragment();
+            fragmentSeleccionado = true;
+        } else if (id == R.id.nav_registro) {
+            miFragment = new RegistrarUsuarioFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_consulta_individual) {
-            miFragment=new ConsultarUsuarioFragment();
-            fragmentSeleccionado=true;
+            miFragment = new ConsultarUsuarioFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_consulta_Url) {
-            miFragment=new ConsultaUsuarioUrlFragment();
-            fragmentSeleccionado=true;
+            miFragment = new ConsultaUsuarioUrlFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_consulta_gral) {
-            miFragment=new ConsultarListaUsuariosFragment();
-            fragmentSeleccionado=true;
+            miFragment = new ConsultarListaUsuariosFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_consulta_gral_img) {
-            miFragment=new ConsutarListausuarioImagenFragment();
-            fragmentSeleccionado=true;
-        }else if (id == R.id.nav_consulta_gral_img_url) {
-            miFragment=new ConsultaListaUsuarioImagenUrlFragment();
-            fragmentSeleccionado=true;
+            miFragment = new ConsutarListausuarioImagenFragment();
+            fragmentSeleccionado = true;
+        } else if (id == R.id.nav_consulta_gral_img_url) {
+            miFragment = new ConsultaListaUsuarioImagenUrlFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_desarrollador) {
-            miFragment=new DesarrolladorFragment();
-            fragmentSeleccionado=true;
+            miFragment = new DesarrolladorFragment();
+            fragmentSeleccionado = true;
         }
 
-        if (fragmentSeleccionado==true){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragment).commit();
+        if (fragmentSeleccionado == true) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
